@@ -58,6 +58,14 @@ const Sales = ({ users, products }) => {
 
   const productColumns = [
     {
+      title: 'img',
+      dataIndex: 'file',
+      key: 'file',
+      render:(data)=>{
+        return <img src={`http://localhost:8090/${data}`} alt="img" />
+      }
+    },
+    {
       title: 'title',
       dataIndex: 'title',
       key: 'title',
@@ -76,6 +84,11 @@ const Sales = ({ users, products }) => {
       title: 'features',
       dataIndex: 'features',
       key: 'features',
+    },
+    {
+      title: 'category',
+      dataIndex: 'category',
+      key: 'category',
     },
     {
       title: '',
@@ -117,11 +130,27 @@ const Sales = ({ users, products }) => {
     }
     // for create data
     else {
-      let res = await createProduct(formData)
-      if (res.data.success) {
-        notification.info({ message: 'product added' })
+      if (formData.category && formData.price && formData.title) {
+        const newformData = new FormData();
+
+        Object.entries(formData).forEach(([key, value]) => {newformData.append(key, value) 
+          console.log(key,value,'formdata')
+        });
+
+        let res = await createProduct(newformData)
+        if (res?.data?.success) {
+          notification.info({ message: 'product added' })
+        }
+        if (res.error) {
+          notification.error({ message: res.error.data?.message })
+        }
+      }
+      else {
+        notification.error({ message: 'fill all fields' })
+
       }
     }
+    setFormData(productInitial)
   };
 
   const getTable = (show) => {

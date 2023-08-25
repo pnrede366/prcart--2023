@@ -16,10 +16,14 @@ export const product = createApi({
             query: (data) => ({
                 url: 'product',
                 method: 'POST',
-                body: data
+                body: data,
+                // headers: {
+                //     'Content-Type': 'multipart/form-data',
+                // }
             }),
-            invalidatesTags: ['Product']
+            invalidatesTags: ['Product'],
         }),
+
         deleteProducts: builder.mutation({
             query: (id) => ({
                 url: `product/${id}`,

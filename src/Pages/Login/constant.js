@@ -59,6 +59,20 @@ export const generateForm = (item, data, setdata) => {
             />
         </div>
     }
+    else if (item.type === "select") {
+        return <div className="input__text">
+            <label htmlFor={item.id}>{item.label}</label>
+            {
+                item.options &&
+                <select value={data[itemName]} onChange={(e) => inputHandler(e, item.name, setdata)}>
+                    {
+                        item?.options?.map((item) => <option value={item}>{item}</option>)
+                    }
+
+                </select>
+            }
+        </div>
+    }
     else if (item.type === "checkbox") {
         return <div className="input__checkbox">
             <label>
@@ -74,13 +88,30 @@ export const generateForm = (item, data, setdata) => {
             </label>
         </div>
     }
+    else if (item.type === "file") {
+        return <div className="input__checkbox">
+            <label>
+                <input
+                    type="file"
+                    onChange={(e) => inputHandler(e, item.name, setdata, item)}
+                    className={item.class}
+                />
+                <span>
+                    {item.label}
+                </span>
+            </label>
+        </div>
+    }
 }
 
-const inputHandler = (e, name, setdata) => {
-    if (e.target.checked) {
+const inputHandler = (e, name, setdata, item) => {
+    if (item && item?.type === "file") {
+        setdata((prev) => ({ ...prev, [name]: e.target.files[0] }))
+    }
+   else if (e.target.checked) {
         setdata((prev) => ({ ...prev, [name]: e.target.checked }))
     }
-    else  {
+    else {
         setdata((prev) => ({ ...prev, [name]: e.target.value }))
     }
 }
