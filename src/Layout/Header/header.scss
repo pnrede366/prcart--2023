@@ -1,0 +1,92 @@
+.header {
+    background-color: #3875ff;
+    height: 4rem;
+    align-items: center;
+    height: 48px;
+    display: flex;
+    color: white;
+    font-size: 18px;
+
+    &__wrapper {
+        width: 100% !important;
+        display: grid;
+        grid-template-columns: 77% 14% 9%;
+        justify-content: center;
+        margin: 0 10rem;
+    }
+
+    &__logo {
+        font-size: 2rem;
+        padding: 0 2rem;
+    }
+
+    &__title {
+        font-size: 2rem;
+        color: gray;
+    }
+
+    &__navItem {
+        max-width: 1140px;
+
+        &:last-child {
+            cursor: pointer;
+        }
+
+        &__text {
+            padding-left: 12px;
+        }
+    }
+
+    &__search {
+        background-color: #3c81fff5;
+
+        .header__navItem__search {
+            display: grid;
+            grid-template-columns: 68% 25%;
+            margin-left: 10rem;
+            padding: 1rem 0;
+
+            .ant-input-search {
+                input {
+                    height: 3rem;
+                    border-radius: 0;
+                    width: 13rem;
+                }
+
+                .ant-input-group-addon {
+                    button {
+                        height: 3rem;
+                        margin: 0 1rem;
+                        border-radius: 0 !important;
+                        width: 3rem;
+                        background: #0d093d;
+                        border: none;
+
+                        .ant-btn-icon {
+                            color: white !important;
+                        }
+                    }
+
+                }
+            }
+
+            img {
+                height: 2rem;
+                width: 3rem;
+            }
+        }
+    }
+
+    &__category {
+        display: flex;
+        gap: 2rem;
+        font-size: 1.2rem;
+        justify-content: space-around;
+        text-transform: capitalize;
+        border-top: 1px solid white;
+        background: #4486ff;
+        color: white;
+        font-weight: 600;
+        padding: 1rem 131px;
+    }
+}

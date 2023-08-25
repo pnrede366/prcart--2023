@@ -1,0 +1,90 @@
+.login__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 23rem;
+    width: 30rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    h1{
+        padding: 1rem;
+    }
+    &__wrapper {
+        height: 100vh;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__signup{
+        margin: 1rem 0;
+        text-decoration: underline;
+        cursor: pointer;
+        color: blue;
+    }
+    .input {
+        &__text {
+            margin: 0.2rem 0;
+        }
+
+        &__checkbox {
+
+            display: flex;
+            width: 19rem;
+
+            label {
+                display: flex;
+                height: 2rem;
+                width: 19rem;
+
+                input {
+                    width: 2rem;
+                }
+
+                span {
+                    padding: 0.2rem 0;
+                }
+            }
+        }
+    }
+
+    label {
+        //   color: white;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        //   border: none;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        //   color: white;
+        font-size: 16px;
+    }
+
+    input[type="checkbox"] {
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 8rem;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(to right, #ff416c, #ff4b2b);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(to right, #ff4b2b, #ff416c);
+        }
+    }
+}
