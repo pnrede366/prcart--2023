@@ -4,12 +4,16 @@ export const getUsers = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:8090/'
     }),
+    tagTypes:['User'],
     endpoints: (builder) => ({
         getAllUser: builder.query({
             query: () => ({
                 url: 'users',
-                method: "GET"
-            })
+                method: "GET",
+            }),
+            providesTags: ['User']
+         
+            
         }),
         deleteUser: builder.mutation({
             query: (id) => {
@@ -17,7 +21,8 @@ export const getUsers = createApi({
                     url: `users/${id}`,
                     method: 'DELETE'
                 })
-            }
+            },
+            invalidatesTags:['User'],
         }),
         createUser: builder.mutation({
             query:(data)=>{

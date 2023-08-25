@@ -22,7 +22,8 @@ const Signup = () => {
   }
   const [formData, setFormData] = useState();
 
-  const handleSubmit = async (e) =>  {
+  console.log(formData);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData?.mobileNumber || !formData.email || !formData.username || !formData.password || !formData.name) {
       api.open({
@@ -32,7 +33,7 @@ const Signup = () => {
         icon: <CloseCircleOutlined />,
         style: { color: 'red' }
       });
-    } 
+    }
     else if (formData.password !== formData.confirmPassword) {
       api.open({
         key: "fsda",
@@ -55,11 +56,12 @@ const Signup = () => {
           icon: <SmileOutlined />,
           style: { color: 'green' }
         })
+        setFormData(initialData)
       }
       if (res.error) {
         api.open({
           key: "fsdafds",
-          message:res.error.data.message,
+          message: res.error.data.message,
           duration: 3,
           icon: <AlertOutlined />,
           style: { color: 'red' }
@@ -67,7 +69,6 @@ const Signup = () => {
       }
 
     }
-    setFormData(initialData)
   };
 
   return (
@@ -77,8 +78,8 @@ const Signup = () => {
         fields.map((item) => generateForm(item, formData, setFormData))
       }
       <div className="form__button__wrapper">
-      <button className="form__button" type="submit">Sign Up</button>
-      <button className="form__button" onClick={()=>navigate('/login')}>Login</button>
+        <button className="form__button" type="submit">Sign Up</button>
+        <button className="form__button" onClick={() => navigate('/login')}>Login</button>
       </div>
       {contextHolder}
     </form>

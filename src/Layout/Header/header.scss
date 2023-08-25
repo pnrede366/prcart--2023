@@ -88,5 +88,8 @@
         color: white;
         font-weight: 600;
         padding: 1rem 131px;
+        &__item{
+            cursor: pointer;
+        }
     }
 }

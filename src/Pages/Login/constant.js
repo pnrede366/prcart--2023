@@ -13,22 +13,20 @@ export const fields = [
         placeholder: 'password',
         name: "password"
     },
-    // {
-    //     label: 'Stay signed in',
-    //     type: 'checkbox',
-    //     id: 'checkbox',
-    //     name: "staySignedIn"
-    // }
-
 ]
 
 export const generateForm = (item, data, setdata) => {
+    if (!item || !item.name) {
+        return null; // Return null if item or item.name is not defined
+    }
+    const itemName = item?.name;
     if (item.type === "text" || item.type === "password" || item.type === "email") {
         return <div className="input__text">
             <label htmlFor={item.id}>{item.label}</label>
             <input
                 type={item.type}
                 id={item.id}
+                value={data && data[itemName]}
                 onChange={(e) => inputHandler(e, item.name, setdata)}
                 placeholder={item.placeholder}
                 className={item.class}
@@ -41,6 +39,20 @@ export const generateForm = (item, data, setdata) => {
             <input
                 type={item.type}
                 id={item.id}
+                value={data && data[itemName]}
+                onChange={(e) => inputHandler(e, item.name, setdata)}
+                placeholder={item.placeholder}
+                className={item.class}
+            />
+        </div>
+    }
+    else if (item.type === "textarea") {
+        return <div className="input__text">
+            <label htmlFor={item.id}>{item.label}</label>
+            <textarea
+                type={item.type}
+                id={item.id}
+                value={data && data[itemName]}
                 onChange={(e) => inputHandler(e, item.name, setdata)}
                 placeholder={item.placeholder}
                 className={item.class}
@@ -51,6 +63,7 @@ export const generateForm = (item, data, setdata) => {
         return <div className="input__checkbox">
             <label>
                 <input
+                    value={data && data[itemName]}
                     type="checkbox"
                     onChange={(e) => inputHandler(e, item.name, setdata)}
                     className={item.class}
@@ -64,11 +77,10 @@ export const generateForm = (item, data, setdata) => {
 }
 
 const inputHandler = (e, name, setdata) => {
-
     if (e.target.checked) {
         setdata((prev) => ({ ...prev, [name]: e.target.checked }))
     }
-    else if (e.target.value) {
+    else  {
         setdata((prev) => ({ ...prev, [name]: e.target.value }))
     }
 }

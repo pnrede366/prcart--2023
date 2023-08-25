@@ -5,6 +5,7 @@ import PageNotFound from "../Component/PageNotFound/PageNotFound"
 import Mobiles from "../Component/Mobiles/Mobiles"
 import Login from "../Pages/Login/Login"
 import Signup from "../Pages/Signup/Signup"
+import Admin from "../Pages/Admin/Admin"
 
 export const routes = [
     {
@@ -34,6 +35,11 @@ export const routes = [
     {
         path: "signup",
         element: <Signup />
+
+    },
+    {
+        path: "admin",
+        element: <Admin />
 
     },
     {
