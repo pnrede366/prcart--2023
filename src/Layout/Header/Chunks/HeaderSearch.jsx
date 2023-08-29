@@ -1,21 +1,46 @@
 import Search from 'antd/es/input/Search'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useGetSearchMutation } from '../../../Service/category';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../Redux/Slice/product';
+import { useGetProductsQuery } from '../../../Service/product';
+import { logo } from '../../../Helper/iconpath';
+import { useNavigate } from 'react-router';
 
 const HeaderSearch = () => {
-    const [search, setsearch] = useState("mobile");
-
-    const onSearch = (value) => {
-        setsearch(value)
-        console.log(value,search);
+    const [search, setsearch] = useState();
+    const [getSearch] = useGetSearchMutation()
+    const { data } = useGetProductsQuery()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const onSearch = async (e) => {
+        console.log(e);
+        setsearch(e.target.value)
     }
+    useEffect(() => {
+        const fetchData = async () => {
+            if (search?.length) {
+                const res = await getSearch(search);
+                if (res.data) {
+                    dispatch(addProduct(res.data));
+                }
+            }
+            else {
+                dispatch(addProduct(data))
+            }
+        };
+
+        fetchData();
+    }, [search, dispatch, getSearch]);
     const searchField = [
         {
-            img: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ficons%2Fwebsite&psig=AOvVaw12QDHVc2O9YxMawf1GDx-T&ust=1692927537947000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCNCC_dWU9IADFQAAAAAdAAAAABAE',
+            img: logo,
+            onclick: () => navigate('/')
         },
         {
             element: <Search
                 placeholder="Search product"
-                onSearch={onSearch}
+                onChange={onSearch}
                 style={{
                     width: 200,
                 }}
@@ -29,8 +54,12 @@ const HeaderSearch = () => {
                 {
                     searchField.map((item) => {
                         return (
+                            <span onClick={item.onclick}> 
+                                {
                             item.img ? <img src={item.img} alt="" /> :
                                 item.element
+                                }
+                            </span>
                         )
                     })
                 }

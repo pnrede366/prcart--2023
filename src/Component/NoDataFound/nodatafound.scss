@@ -1,0 +1,20 @@
+.noDataFound {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin: auto;
+    height: 200px;
+    width: 50%;
+    background-color: #fdfeff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    grid-column: 1/-1;
+    margin: 1rem auto;
+    p {
+      color: #555;
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+  

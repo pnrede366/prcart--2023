@@ -7,6 +7,10 @@
     color: white;
     font-size: 18px;
 
+    &__navWrapper {
+        box-shadow: 0 2px 20px #4486ff;
+    }
+
     &__wrapper {
         width: 100% !important;
         display: grid;
@@ -23,6 +27,29 @@
     &__title {
         font-size: 2rem;
         color: gray;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: space-around;
+        margin: 3rem 0;
+
+        .header__category__item {
+            display: flex;
+            flex-direction: column;
+            border-radius: 17px;
+            background: #f9fbff;
+            box-shadow: 0px 3px 8px #b2b8c9, -12px -12px 24px #f0f8ff;
+            width: 8rem;
+            height: 8rem;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                height: 4rem;
+                width: 5rem;
+            }
+        }
     }
 
     &__navItem {
@@ -56,7 +83,6 @@
                 .ant-input-group-addon {
                     button {
                         height: 3rem;
-                        margin: 0 1rem;
                         border-radius: 0 !important;
                         width: 3rem;
                         background: #0d093d;
@@ -71,8 +97,8 @@
             }
 
             img {
-                height: 2rem;
-                width: 3rem;
+                height: 5rem;
+                width: 15rem;
             }
         }
     }
@@ -83,12 +109,14 @@
         font-size: 1.2rem;
         justify-content: space-around;
         text-transform: capitalize;
-        border-top: 1px solid white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.429);
         background: #4486ff;
         color: white;
         font-weight: 600;
-        padding: 1rem 131px;
-        &__item{
+        padding: 1.5rem 131px;
+        align-items: center;
+
+        &__item {
             cursor: pointer;
         }
     }

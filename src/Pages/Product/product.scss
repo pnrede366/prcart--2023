@@ -1,0 +1,117 @@
+.product__wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 368px);
+    background-color: #fafcff;
+}
+
+.product__card {
+    display: flex;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 0px 6px #2655af, 0px 0px 0px #ffffff;
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s;
+    flex-direction: column;
+    margin: 1rem;
+    padding: 1rem;
+    position: relative;
+
+    &:hover {
+        .product__details .product__button__cart {
+            display: block !important;
+            background: none !important;
+            font-size: 3rem;
+            color: white;
+            width: 3rem;
+            background-color: #4486ff !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 80px;
+            height: 3rem;
+            position: absolute;
+            top: 10px;
+            right: 1rem;
+            transition: 0.5s;
+
+            * {
+                display: block !important;
+            }
+        }
+    }
+
+    .product__image {
+        img {
+            min-height: 12rem;
+            max-height: 12rem;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+    }
+
+    .product__details {
+        flex: 1;
+        padding: 20px;
+
+        .product__title {
+            text-transform: capitalize;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            margin: 0.5rem 0;
+        }
+
+        .product__price {
+            font-size: 1.2rem;
+            color: #2655af;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin: 0.5rem 0;
+        }
+
+        .product__description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            margin: 0.5rem 0;
+        }
+
+        .product__button {
+            background-color: #4486ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            .anticon {
+                margin: 0 0.5rem;
+            }
+            &__cart {
+                display: none;
+                background: none !important;
+                font-size: 3rem;
+                color: white;
+                width: 3rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 80px;
+                height: 3rem;
+                position: absolute;
+                top: 10px;
+                right: 1rem;
+
+                * {
+                    display: none;
+                }
+            }
+
+            &:hover {
+                background-color: #4486ff;
+            }
+        }
+    }
+}

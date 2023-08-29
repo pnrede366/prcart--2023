@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import './login.scss';
 import { fields, generateForm } from './constant';
 import { useNavigate } from 'react-router';
-import { useLoginUserMutation } from '../../Service/getUsers';
+import { useGetUserByIdQuery, useLoginUserMutation } from '../../Service/getUsers';
 import { message, notification } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { addToken } from '../../Redux/Slice/auth';
+import { storeUser } from '../../Redux/Slice/user';
 
 const LoginForm = () => {
   const [data, setdata] = useState(
@@ -13,9 +16,10 @@ const LoginForm = () => {
       password: '',
     }
   )
+  const { refetch } = useGetUserByIdQuery();
   const [api, contextHolder] = notification.useNotification();
-
-  const [loginUser, response] = useLoginUserMutation()
+  const dispatch = useDispatch()
+  const [loginUser] = useLoginUserMutation()
 
   const navigate = useNavigate()
   const handleSubmit = async (e) => {
@@ -23,6 +27,9 @@ const LoginForm = () => {
     let res = await loginUser(data)
     if (res.data) {
       document.cookie = `token= ${res?.data?.token}`
+      dispatch(addToken({ token: res?.data.token }))
+      let user = await refetch()
+      dispatch(storeUser(user?.data?.result?.result))
       message.info('Login successful');
       navigate('/')
     }
@@ -45,7 +52,7 @@ const LoginForm = () => {
         {
           fields.map((item) => generateForm(item, data, setdata))
         }
-        <button type="submit">Login</button>
+        <button type="submit" >Login</button>
         <div className='login__form__signup' onClick={() => navigate('/signup')}>
           didn't have account? signup
         </div>

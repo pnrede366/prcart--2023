@@ -31,10 +31,19 @@ export const deleteProductById = async (id, deleteProduct) => {
 
 export const editHandler = async (id, setisUpdate, findById, setFormData, setIsModalOpen) => {
     setisUpdate(id)
-    let data = await findById(id)
+    let data = await findById({ id: id })
     console.log(data);
     if (data?.data?.product) {
         setFormData(data.data.product)
     }
     setIsModalOpen(true)
+}
+
+export const getCookie = (name) => {
+    let cookie = {};
+    document.cookie.split(';').forEach(function (el) {
+        let [k, v] = el.split('=');
+        cookie[k.trim()] = v;
+    })
+    return cookie[name];
 }

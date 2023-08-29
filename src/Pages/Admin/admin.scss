@@ -1,14 +1,16 @@
 .admin {
     display: flex;
     flex-direction: column;
+    padding: 3rem;
 
-    &__addProduct{
+    &__addProduct {
         width: 10rem;
         margin: 1rem;
         align-self: flex-end;
         height: 4rem;
         border-radius: 100px;
     }
+
     h1 {
         margin: auto;
         align-self: center;
@@ -21,20 +23,24 @@
         -webkit-border-radius: 35px;
         border-radius: 35px;
         background: #eceef5;
-        img{
+
+        img {
             height: 4rem;
             width: 6rem;
         }
+
+        .ant-table-wrapper {
+            border-radius: 21px;
+            background: #fbfbfb;
+            box-shadow: 1px 5px 59px #dddddd, -28px -28px 56px #ffffff;
+            margin-bottom: 3rem;
+        }
+
         // -webkit-box-shadow: 13px 13px 27px #999eac, -13px -13px 27px #ffffff;
         // box-shadow: 13px 13px 27px #999eac, -13px -13px 27px #ffffff;
     }
 
     .totals {
-        -webkit-border-radius: 35px;
-        border-radius: 35px;
-        background: #eceef5;
-        // -webkit-box-shadow: 13px 13px 27px #999eac, -13px -13px 27px #ffffff;
-        // box-shadow: 13px 13px 27px #999eac, -13px -13px 27px #ffffff;
         width: 62rem;
         align-self: center;
         margin: 2rem;
@@ -42,27 +48,35 @@
         flex-direction: column;
         padding: 2rem;
         align-items: center;
-        h2{
+        border-radius: 21px;
+        background: #3079ff;
+        box-shadow: inset 28px 28px 56px #3968be, inset -28px -28px 56px #1d63e2;
+        color: white;
+        h2 {
             font-size: 2rem;
             text-decoration: underline;
         }
-        h4{
+
+        h4 {
             font-size: 1.5rem;
             font-weight: bold;
             margin: 0.5rem 0;
         }
-        &__wrapper{
+
+        &__wrapper {
             display: flex;
             gap: 4rem;
             margin: 1rem;
             font-size: 2rem;
         }
-        &__users{
+
+        &__users {
             display: flex;
             flex-direction: column;
             align-items: center;
             font-weight: bold;
-            span{
+
+            span {
                 cursor: pointer;
                 padding: 0.5rem;
             }

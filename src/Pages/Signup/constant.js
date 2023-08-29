@@ -14,7 +14,7 @@ export const fields = [
     {
         label: 'Mobile Number: *',
         class: 'form__input',
-        type: 'number',
+        type: 'text',
         name: 'mobileNumber',
     },
     {
@@ -42,3 +42,4 @@ export const fields = [
         name: 'confirmPassword',
     },
 ];
+

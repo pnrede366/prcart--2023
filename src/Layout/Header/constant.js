@@ -1,4 +1,5 @@
 import { CarOutlined, CheckOutlined } from "@ant-design/icons";
+import { earbuds, laptop, mobile, television, watch } from "../../Helper/iconpath";
 
 export const navItems = [
     {
@@ -13,4 +14,12 @@ export const navItems = [
         icon: "",
         text: "Track order"
     },
+]
+
+export const icons = [
+    earbuds,
+    mobile,
+    laptop,
+    television,
+    watch
 ]

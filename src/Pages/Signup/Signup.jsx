@@ -22,50 +22,32 @@ const Signup = () => {
   }
   const [formData, setFormData] = useState();
 
-  console.log(formData);
+  // console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const isMobileValid = /^[0-9]{10}$/.test(formData.mobileNumber);
+    const isPasswordValid = /^.{8,}$/.test(formData.password)
+
     if (!formData?.mobileNumber || !formData.email || !formData.username || !formData.password || !formData.name) {
-      api.open({
-        key: "fsda",
-        message: 'Please fill all the required fields',
-        duration: 3,
-        icon: <CloseCircleOutlined />,
-        style: { color: 'red' }
-      });
+      notification.error({ message: 'Please fill all the required fields' })
     }
     else if (formData.password !== formData.confirmPassword) {
-      api.open({
-        key: "fsda",
-        message: 'password & confirm password',
-        description: 'not matched',
-        duration: 3,
-        icon: <CloseCircleOutlined />,
-        style: { color: 'red' }
-
-      });
+      notification.error({ message: 'password & confirm password' })
+    }
+    else if (!isMobileValid) {
+      notification.error({ message: 'mobile number not valid' })
+    }
+    else if (!isPasswordValid) {
+      notification.error({ message: 'password should be minimum 8 char' })
     }
     else {
       let res = await createUser(formData)
-      console.log(res);
       if (res.data) {
-        api.open({
-          key: "fsdas",
-          message: 'Signup successfully',
-          duration: 3,
-          icon: <SmileOutlined />,
-          style: { color: 'green' }
-        })
+        notification.info({ message: 'Signup successfully' })
         setFormData(initialData)
       }
       if (res.error) {
-        api.open({
-          key: "fsdafds",
-          message: res.error.data.message,
-          duration: 3,
-          icon: <AlertOutlined />,
-          style: { color: 'red' }
-        });
+        notification.error({ message: res.error.data.message })
       }
 
     }

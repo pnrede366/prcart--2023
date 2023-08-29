@@ -1,0 +1,60 @@
+.cart {
+    padding: 2rem;
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: underline;
+    }
+
+    &__userDetails {
+        &__row {
+            border: 1px solid;
+            padding: 0.5rem;
+            display: grid;
+            grid-template-columns: 5rem 19rem;
+        }
+        button{
+            margin:0.5rem;
+            display: flex;
+            justify-content: flex-end;
+        
+        }
+    }
+
+    &__checkout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        height: 3rem;
+        width: 11rem;
+        color: white;
+        background: #48cc48;
+        font-size: 1.5rem;
+        margin: 1rem auto;
+        border: 1px solid #48cc48 !important;
+
+        &:hover {
+            color: #48cc48 !important;
+            background: #fff !important;
+        }
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: repeat(4, 374px);
+    }
+
+    &__btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            margin: 0.5rem;
+            min-height: 2rem;
+            width: 4rem;
+        }
+    }
+}

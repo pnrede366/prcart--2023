@@ -4,12 +4,13 @@ import { productInitial } from '../constant';
 import { useDeleteUserMutation } from '../../../Service/getUsers';
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
-import AddProduct from './AddProduct';
-import { useCreateProductsMutation, useDeleteProductsMutation, useFindProductMutation, useUpdateProductsMutation } from '../../../Service/product';
+import ModalComp from './ModalComp';
+import { useCreateProductsMutation, useDeleteProductsMutation, useFindProductMutation, useFindSingleProductMutation, useFindSingleProductQuery, useUpdateProductsMutation } from '../../../Service/product';
 import { deleteId, deleteProductById, editHandler } from '../../../Helper/utility';
+import { useGetCategoryQuery } from '../../../Service/category';
 
 
-const Sales = ({ users, products }) => {
+const Sales = ({ users, products, orders }) => {
   const [deleteUser,] = useDeleteUserMutation()
   const [deleteProduct] = useDeleteProductsMutation()
   const [updateProduct] = useUpdateProductsMutation()
@@ -18,10 +19,72 @@ const Sales = ({ users, products }) => {
   const [formData, setFormData] = useState(productInitial);
   const [createProduct,] = useCreateProductsMutation()
   const [isUpdate, setisUpdate] = useState(false)
-  const [findById] = useFindProductMutation()
+  const [findById] = useFindSingleProductMutation()
   let show = searchParams.get('show')
+  const { data } = useGetCategoryQuery()
+  const orderColumn = [
+    {
+      title: 'productId',
+      dataIndex: 'productId',
+      key: 'productId',
+    },
+    {
+      title: 'userId',
+      dataIndex: 'userId',
+      key: 'userId',
+    },
+    {
+      title: 'quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+  ]
+
+  const formFieldProduct = [
+    {
+      label: 'Title:',
+      type: 'text',
+      id: 'title',
+      placeholder: 'title',
+      name: "title"
+    },
+    {
+      label: 'price:',
+      type: 'number',
+      id: 'price',
+      placeholder: 'price',
+      name: "price"
+    },
+    {
+      label: 'description:',
+      type: 'text',
+      id: 'description',
+      placeholder: 'description',
+      name: "description"
+    },
+    {
+      label: 'category:',
+      type: 'select',
+      id: 'category',
+      placeholder: 'category',
+      name: "category",
+      options: data?.result.map((item) => item.type)
+    },
+    {
+      label: 'file:',
+      type: 'file',
+      id: 'file',
+      placeholder: 'file',
+      name: "file",
+    },
+  ]
 
   const userColumns = [
+    {
+      title: 'id',
+      dataIndex: '_id',
+      key: '_id',
+    },
     {
       title: 'username',
       dataIndex: 'username',
@@ -58,10 +121,15 @@ const Sales = ({ users, products }) => {
 
   const productColumns = [
     {
+      title: 'id',
+      dataIndex: '_id',
+      key: '_id',
+    },
+    {
       title: 'img',
       dataIndex: 'file',
       key: 'file',
-      render:(data)=>{
+      render: (data) => {
         return <img src={`http://localhost:8090/${data}`} alt="img" />
       }
     },
@@ -79,11 +147,6 @@ const Sales = ({ users, products }) => {
       title: 'description',
       dataIndex: 'description',
       key: 'description',
-    },
-    {
-      title: 'features',
-      dataIndex: 'features',
-      key: 'features',
     },
     {
       title: 'category',
@@ -120,8 +183,14 @@ const Sales = ({ users, products }) => {
     setIsModalOpen(false);
     // for update
     if (isUpdate) {
-      console.log(formData);
-      let res = await updateProduct({ id: isUpdate, data: formData })
+
+      const newformData = new FormData();
+
+      Object.entries(formData).forEach(([key, value]) => {
+        newformData.append(key, value)
+      });
+
+      let res = await updateProduct({ id: isUpdate, data: newformData })
       console.log(res, isUpdate, formData);
       if (res?.data?.success) {
         notification.info({ message: 'product updated' })
@@ -130,13 +199,13 @@ const Sales = ({ users, products }) => {
     }
     // for create data
     else {
-      if (formData.category && formData.price && formData.title) {
+      if (formData) {
         const newformData = new FormData();
-
-        Object.entries(formData).forEach(([key, value]) => {newformData.append(key, value) 
-          console.log(key,value,'formdata')
+        
+        Object.entries(formData).forEach(([key, value]) => {
+          newformData.append(key, value)
         });
-
+        
         let res = await createProduct(newformData)
         if (res?.data?.success) {
           notification.info({ message: 'product added' })
@@ -160,6 +229,11 @@ const Sales = ({ users, products }) => {
     else if (show === "products") {
       return <Table dataSource={products} columns={productColumns} />
     }
+    else {
+      if (orders) {
+        return <Table dataSource={orders} columns={orderColumn} />
+      }
+    }
   }
 
   return (
@@ -167,7 +241,7 @@ const Sales = ({ users, products }) => {
       {
         show === "products" && <Button className='admin__addProduct' onClick={() => setIsModalOpen(true)}>Add Product <PlusCircleOutlined /></Button>
       }
-      <AddProduct isUpdate={isUpdate} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} formData={formData} setFormData={setFormData} handleOk={handleOk} />
+      <ModalComp formFieldProduct={formFieldProduct} title="Add Product +" comp='products' isUpdate={isUpdate} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} formData={formData} setFormData={setFormData} handleOk={handleOk} />
       <div className="admin__sales__report">
         {
           getTable(show)

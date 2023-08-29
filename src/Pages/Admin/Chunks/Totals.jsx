@@ -2,7 +2,7 @@ import { ShopOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/ic
 import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-const Totals = ({ data, products }) => {
+const Totals = ({ data, products,orders }) => {
     const [, setsearchParams] = useSearchParams()
     const totalData = [
         {
@@ -15,7 +15,7 @@ const Totals = ({ data, products }) => {
             title: 'Total orders',  
             key: 'orders',
             icon: <ShoppingCartOutlined />,
-            value: 0
+            value: orders?.length
         },
         {
             title: 'Total products',
@@ -26,8 +26,6 @@ const Totals = ({ data, products }) => {
     ]
     return (
         <div className='totals'>
-            <h2>PrCart -- 2023</h2>
-            <h4>Users & Orders</h4>
             <div className='totals__wrapper'>
                 {
                     totalData.map((item) => {

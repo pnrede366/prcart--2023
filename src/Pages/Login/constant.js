@@ -91,14 +91,14 @@ export const generateForm = (item, data, setdata) => {
     else if (item.type === "file") {
         return <div className="input__checkbox">
             <label>
+                <span>
+                    {item.label}
+                </span>
                 <input
                     type="file"
                     onChange={(e) => inputHandler(e, item.name, setdata, item)}
                     className={item.class}
                 />
-                <span>
-                    {item.label}
-                </span>
             </label>
         </div>
     }

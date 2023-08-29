@@ -1,9 +1,8 @@
 
 export const productInitial = {
-    title: 'dsaf',
-    price: 123,
-    description: 'dsa',
-    features: 'dsa',
+    title: '',
+    price: '',
+    description: '',
     category: 'earbuds',
     file:''
 }

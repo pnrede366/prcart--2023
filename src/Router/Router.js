@@ -17,7 +17,7 @@ const getRoutes = (routes) => {
     return (
         routes?.map((item) => {
             return (
-                <Route element={item.element} path={item.path}>
+                <Route element={item.element} path={item.path} {...item}>
                     {getRoutes(item.childRoutes)}
                 </Route>
             )

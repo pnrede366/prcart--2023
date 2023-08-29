@@ -1,17 +1,19 @@
 import React from "react";
 import "./header.scss";
-import TopHeader from "./Chunks/TopHeader";
 import HeaderSearch from "./Chunks/HeaderSearch";
-import HeaderCategory from "./Chunks/HeaderCategory";
+import HeaderActions from "./Chunks/HeaderActions";
+import { useLocation } from "react-router";
 
 const Header = () => {
- 
-
+    const location = useLocation()
+    const pathmatch = location.pathname === "/"
     return (
-        <div>
-            <TopHeader />
-            <HeaderSearch />
-            <HeaderCategory />
+        <div className="header__navWrapper">
+            <HeaderActions />
+            {
+                pathmatch &&
+                <HeaderSearch />
+            }
         </div>
     )
 }

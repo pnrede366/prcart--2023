@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const product = createApi({
     reducerPath: 'product',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8090/' }),
+    baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
     tagTypes: ['Product'],
     endpoints: (builder) => ({
         getProducts: builder.query({
@@ -41,8 +42,15 @@ export const product = createApi({
             invalidatesTags: ['Product']
         }),
         findProduct: builder.mutation({
-            query: (id) => ({
-                url: `product/${id}`,
+            query: (data) => ({
+                url: `productid`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+        findSingleProduct: builder.mutation({
+            query: ({ id }) => ({
+                url: `productById/${id}`,
                 method: 'POST',
             }),
         })
@@ -50,4 +58,4 @@ export const product = createApi({
 })
 
 
-export const { useGetProductsQuery, useCreateProductsMutation, useUpdateProductsMutation, useDeleteProductsMutation, useFindProductMutation } = product
+export const { useGetProductsQuery, useCreateProductsMutation, useUpdateProductsMutation, useDeleteProductsMutation, useFindProductMutation, useFindSingleProductMutation } = product
